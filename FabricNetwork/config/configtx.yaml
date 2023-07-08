@@ -1,0 +1,151 @@
+Organizations:
+  - &Manufactorer
+    Name: Manufactorer
+    ID: ManufactorerMSP
+    MSPDir: /home/huy/CarSupplyChain/FabricNetwork/Info/MSPManufactorer
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('ManufactorerMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('ManufactorerMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('ManufactorerMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('ManufactorerMSP.peer','ManufactorerMSP.admin')"
+  - &Supplier
+    Name: Supplier
+    ID: SupplierMSP
+    MSPDir: /home/huy/CarSupplyChain/FabricNetwork/Info/MSPSupplier
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('SupplierMSP.admin', 'SupplierMSP.peer', 'SupplierMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('SupplierMSP.admin', 'SupplierMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('SupplierMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('SupplierMSP.peer','SupplierMSP.admin')"
+  - &Dealer
+    Name: Dealer
+    ID: DealerMSP
+    MSPDir: /home/huy/CarSupplyChain/FabricNetwork/Info/MSPDealer
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('DealerMSP.admin', 'DealerMSP.peer', 'DealerMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('DealerMSP.admin', 'DealerMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('DealerMSP.admin')"
+      Endorsement:
+        Type: Signature
+        Rule: "OR('DealerMSP.peer','DealerMSP.admin')"
+Capabilities:
+  Channel: &ChannelCapabilities
+    V2_0: true
+  Orderer: &OrdererCapabilities
+    V2_0: true
+  Application: &ApplicationCapabilities
+    V2_5: true
+
+Application: &ApplicationDefaults
+  Organizations:
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    LifecycleEndorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+    Endorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+
+  Capabilities:
+    <<: *ApplicationCapabilities
+Orderer: &OrdererDefaults
+  OrdererType: etcdraft
+  Addresses:
+    - orderer1.example.com:7050
+    - orderer2.example.com:8050
+    - orderer3.example.com:9050
+  EtcdRaft:
+    Consenters:
+      - Host: orderer1.example.com
+        Port: 7050
+        ClientTLSCert: /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Orderer1/tls/signcerts/cert.pem
+        ServerTLSCert: /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Orderer1/tls/signcerts/cert.pem
+      - Host: orderer2.example.com
+        Port: 8050
+        ClientTLSCert: /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Orderer2/tls/signcerts/cert.pem
+        ServerTLSCert: /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Orderer2/tls/signcerts/cert.pem
+      - Host: orderer3.example.com
+        Port: 9050
+        ClientTLSCert: /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Orderer3/tls/signcerts/cert.pem
+        ServerTLSCert: /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Orderer3/tls/signcerts/cert.pem
+  BatchTimeout: 2s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+  Organizations:
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    BlockValidation:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+
+  Capabilities:
+    <<: *ChannelCapabilities
+
+Profiles:
+  ThreeOrgsApplicationGenesis:
+    <<: *ChannelDefaults
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *Manufactorer
+      Capabilities: *OrdererCapabilities
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Supplier
+        - *Dealer
+        - *Manufactorer
+      Capabilities: *ApplicationCapabilities
