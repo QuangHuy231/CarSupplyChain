@@ -592,7 +592,7 @@ chaincode:
   # To override this property via env variable use CORE_CHAINCODE_EXTERNALBUILDERS: [{name: x, path: dir1}, {name: y, path: dir2}]
   # The path must be an absolute path.
   externalBuilders:
-    - path: /chaincode-typescript/sampleBuilder
+    - path: /chaincode-carsupply/sampleBuilder
       name: external-sample-builder
 
   # The maximum duration to wait for the chaincode build and install process

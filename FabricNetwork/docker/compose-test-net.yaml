@@ -198,7 +198,7 @@ services:
       - /home/huy/CarSupplyChain/FabricNetwork/Supplier/Peer/msp:/etc/hyperledger/crypto/peer/msp
       - /home/huy/CarSupplyChain/FabricNetwork/Supplier/Peer/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - /home/huy/CarSupplyChain/FabricNetwork/chaincode-typescript:/chaincode-typescript
+      - /home/huy/CarSupplyChain/FabricNetwork/chaincode-carsupply:/chaincode-carsupply
       - /home/huy/CarSupplyChain/FabricNetwork/config/core.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - test
@@ -243,7 +243,7 @@ services:
       - /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Peer/msp:/etc/hyperledger/crypto/peer/msp
       - /home/huy/CarSupplyChain/FabricNetwork/Manufactorer/Peer/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - /home/huy/CarSupplyChain/FabricNetwork/chaincode-typescript:/chaincode-typescript
+      - /home/huy/CarSupplyChain/FabricNetwork/chaincode-carsupply:/chaincode-carsupply
       - /home/huy/CarSupplyChain/FabricNetwork/config/core.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - test
@@ -288,7 +288,7 @@ services:
       - /home/huy/CarSupplyChain/FabricNetwork/Dealer/Peer/msp:/etc/hyperledger/crypto/peer/msp
       - /home/huy/CarSupplyChain/FabricNetwork/Dealer/Peer/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - /home/huy/CarSupplyChain/FabricNetwork/chaincode-typescript:/chaincode-typescript
+      - /home/huy/CarSupplyChain/FabricNetwork/chaincode-carsupply:/chaincode-carsupply
       - /home/huy/CarSupplyChain/FabricNetwork/config/core.yaml:/etc/hyperledger/fabric/core.yaml
     networks:
       - test

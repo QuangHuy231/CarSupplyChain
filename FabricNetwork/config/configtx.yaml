@@ -15,7 +15,7 @@ Organizations:
         Rule: "OR('ManufactorerMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('ManufactorerMSP.peer','ManufactorerMSP.admin')"
+        Rule: "OR('ManufactorerMSP.member')"
   - &Supplier
     Name: Supplier
     ID: SupplierMSP
@@ -23,16 +23,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('SupplierMSP.admin', 'SupplierMSP.peer', 'SupplierMSP.client')"
+        Rule: "OR('SupplierMSP.member')"
       Writers:
         Type: Signature
-        Rule: "OR('SupplierMSP.admin', 'SupplierMSP.client')"
+        Rule: "OR('SupplierMSP.member')"
       Admins:
         Type: Signature
         Rule: "OR('SupplierMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('SupplierMSP.peer','SupplierMSP.admin')"
+        Rule: "OR('SupplierMSP.member')"
   - &Dealer
     Name: Dealer
     ID: DealerMSP
@@ -40,16 +40,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('DealerMSP.admin', 'DealerMSP.peer', 'DealerMSP.client')"
+        Rule: "OR('DealerMSP.member')"
       Writers:
         Type: Signature
-        Rule: "OR('DealerMSP.admin', 'DealerMSP.client')"
+        Rule: "OR('DealerMSP.member')"
       Admins:
         Type: Signature
         Rule: "OR('DealerMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('DealerMSP.peer','DealerMSP.admin')"
+        Rule: "OR('DealerMSP.member')"
 Capabilities:
   Channel: &ChannelCapabilities
     V2_0: true
